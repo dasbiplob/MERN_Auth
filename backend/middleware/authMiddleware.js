@@ -12,15 +12,15 @@ const protect = asyncHandler(async (req, res, next) => {
       try {
         const decoded = jwt.verify(token, JWT_SECRET);
 
-        console.log(decoded)
+        console.log(decoded) 
   
-        req.user = await User.findById(decoded.userId).select('-password');
+        req.user = await User.findById(decoded.useId).select('-password');
   
         next();
       } catch (error) {
         console.error(error);
         res.status(401);
-        throw new Error('Not authorized, token failed');
+        throw new Error('Not authorized, invalid token');
       }
     } else {
       res.status(401);

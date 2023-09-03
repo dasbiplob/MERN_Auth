@@ -72,13 +72,11 @@ const logoutUser = (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
-
-  if (user) {
+  if (req.user) {
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      _id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
     });
   } else {
     res.status(404);
